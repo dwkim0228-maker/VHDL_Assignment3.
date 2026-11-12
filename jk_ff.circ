@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project source="3.8.0" version="1.0">
+  This file is intended to be loaded by Logisim-evolution v3.8.0(https://github.com/logisim-evolution/).
+  <lib desc="#Wiring" name="0"/>
+  <lib desc="#Gates" name="1"/>
+  <lib desc="#Base" name="8"/>
+  <lib desc="#VHDL" name="12"/>
+  <main name="main"/>
+  <options>
+    <a name="gateUndefined" val="ignore"/>
+    <a name="simlimit" val="1000"/>
+    <a name="simrand" val="0"/>
+  </options>
+  <circuit name="main">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="main"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <!-- Gate-Level Positive-Edge JK Flip-Flop using NAND Gates and Feedback -->
+    <comp lib="0" loc="(80,100)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="J"/>
+    </comp>
+    <comp lib="0" loc="(80,160)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(80,220)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="K"/>
+    </comp>
+    <comp lib="1" loc="(240,110)" name="NAND Gate"><a name="inputs" val="3"/></comp>
+    <comp lib="1" loc="(240,210)" name="NAND Gate"><a name="inputs" val="3"/></comp>
+    <comp lib="1" loc="(360,120)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="1" loc="(360,200)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="1" loc="(480,120)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="1" loc="(480,200)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="1" loc="(580,130)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="1" loc="(580,190)" name="NAND Gate"><a name="inputs" val="2"/></comp>
+    <comp lib="0" loc="(660,130)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(660,190)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Q_bar"/>
+      <a name="output" val="true"/>
+    </comp>
+    <!-- VHDL Entity Instance -->
+    <comp lib="0" loc="(80,340)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="j_in"/>
+    </comp>
+    <comp lib="0" loc="(80,360)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="k_in"/>
+    </comp>
+    <comp lib="0" loc="(80,380)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="clk_in"/>
+    </comp>
+    <comp lib="12" loc="(200,340)" name="VhdlEntity">
+      <a name="content" val="library ieee;&#10;use ieee.std_logic_1164.all;&#10;&#10;entity jk_ff is&#10;    port (&#10;        j     : in  std_logic;&#10;        k     : in  std_logic;&#10;        clk   : in  std_logic;&#10;        q     : out std_logic;&#10;        q_bar : out std_logic&#10;    );&#10;end entity jk_ff;&#10;&#10;architecture behavioral of jk_ff is&#10;    signal q_int : std_logic := '0';&#10;begin&#10;    process (clk)&#10;    begin&#10;        if rising_edge(clk) then&#10;            if (j = '0' and k = '0') then&#10;                q_int &lt;= q_int;&#10;            elsif (j = '0' and k = '1') then&#10;                q_int &lt;= '0';&#10;            elsif (j = '1' and k = '0') then&#10;                q_int &lt;= '1';&#10;            elsif (j = '1' and k = '1') then&#10;                q_int &lt;= not q_int;&#10;            end if;&#10;        end if;&#10;    end process;&#10;    q     &lt;= q_int;&#10;    q_bar &lt;= not q_int;&#10;end architecture behavioral;"/>
+    </comp>
+    <comp lib="0" loc="(400,340)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="q_out"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(400,360)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="q_bar_out"/>
+      <a name="output" val="true"/>
+    </comp>
+    <wire from="(80,340)" to="(200,340)"/>
+    <wire from="(80,360)" to="(200,360)"/>
+    <wire from="(80,380)" to="(200,380)"/>
+    <wire from="(340,340)" to="(400,340)"/>
+    <wire from="(340,360)" to="(400,360)"/>
+  </circuit>
+</project>
